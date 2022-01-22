@@ -39,4 +39,9 @@ npm install
 ng serve
 ```
 
+## Loggeo de usuarios
+
+No se necesita acceder con contraseña. La autenticacion esta hecha con un link magico enviado directamente al correo electronico.
+
+*Enjoy 😊*
 
