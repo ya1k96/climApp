@@ -1,0 +1,86 @@
+<div class="pb-3 mb-4 main">
+    <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col-12">
+                <div class="row g-0 border rounded mb-4 shadow-sm bg-white w-100" *ngIf="!loading">
+                  <div class="col-9 p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">Tiempo actual</strong>                    
+                    <h3 class="mb-0">{{actualWeather.location}}</h3>
+                    <p class="mb-1 text-muted">Temperatura: <span class="card-text mb-auto">{{actualWeather.main.temp}}</span>                      
+                    </p>                    
+                    <p class="mb-1 text-muted">Sensacion Termica: <span class="card-text mb-auto">{{actualWeather.main.feels_like}}</span>                      
+                    </p>                    
+                    <p class="text-muted"><strong>{{actualWeather.weather[0].description}}</strong></p>
+                  </div>
+                  <div class="col-3">
+                    <img class="pt-4" width="auto" height="auto" src="http://openweathermap.org/img/wn/{{actualWeather.weather[0].icon}}@2x.png"> 
+                  </div>                 
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border m-4 text-primary" role="status" *ngIf="loading">
+                  </div>
+                </div>
+              </div>
+        </div>    
+        <div class="row">            
+          <div class="input-group">
+              <input type="text" class="form-control" id="floatingInput" placeholder="Buscar por ciudad" (keyup.enter)="search($event)">
+              <span class="input-group-text" id="addon-wrapping">
+                  <img class="" src="assets/images/search.svg" alt="" width="25" height="25">
+              </span>                    
+            </div>                         
+        </div>
+        <div class="d-flex justify-content-start mt-1">
+          <p class="text-muted m-0 mt-4">
+            <img src="assets/images/history.svg" alt="" width="25" height="25">
+            Historial</p>          
+        </div> 
+               
+        <div class="row  rounded mt-2">
+          <div class="col-6">
+            <div class="input-group">
+              <input type="text" class="form-control" id="floatingInput" (keyup)="filterHistory($event)" placeholder="Filtar por ciudad">
+              <span class="input-group-text" id="addon-wrapping">
+                  <img class="" src="assets/images/search.svg" alt="" width="25" height="25">
+              </span>                    
+            </div>            
+          </div>          
+          <div class="offset-3 col-3"><div class="btn btn-outline-secondary" (click)="setHistory([])"><img src="assets/images/delete.svg" alt="" width="25" height="25">Limpiar historial</div></div>
+          <div class="col-12 mt-2">
+            <div class="card p-2">
+             
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>Ciudad</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of history | paginate: { itemsPerPage: pageSize,
+                    currentPage: p,
+                    totalItems: history.length }">
+                    <td>{{item.query}}</td>
+                    <td class="text-muted">{{momentVar(item.createdAt).fromNow()}}</td>
+                  </tr>    
+                  <tr *ngIf="history.length === 0">
+                    <td colspan="2"><p class="text-muted text-center">No hay resultados</p></td>
+                  </tr>            
+                </tbody>
+              </table> 
+              <div class="d-flex justify-content-center mt-3">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                <select class="form-select" (change)="changePerPage($event)">
+                  <option value="5" selected>Por pagina</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>

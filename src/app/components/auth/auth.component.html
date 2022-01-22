@@ -1,0 +1,27 @@
+<div clas="flex justify-content-center">
+    <main class="form-signin text-center">
+        <form>
+          <img class="mb-4" src="assets/images/weather.svg" alt="" width="72" height="57">
+          
+          <h1 class="h2 mb-3 fw-normal">Clima App</h1>
+          <h1 class="h4 mb-3 fw-normal">Ingresa por favor</h1>
+      
+          <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" #input>
+            <label for="floatingInput">Correo</label>
+          </div>
+          <!-- <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Contraseña</label>
+          </div> -->
+            <br>
+            {{loading ? '' : 'Enviame link magico'}}
+
+            <div class="spinner-border m-4 text-primary" role="status" *ngIf="loading">
+            </div>
+            
+            <br>
+          <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="loading" (click)="handleLogin(input.value)">Entrar</button>
+        </form>
+    </main>
+</div>
